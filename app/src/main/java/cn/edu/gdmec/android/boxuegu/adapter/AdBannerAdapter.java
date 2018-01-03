@@ -4,7 +4,7 @@ package cn.edu.gdmec.android.boxuegu.adapter;
 import cn.edu.gdmec.android.boxuegu.bean.CourseBean;
 
 
-import cn.edu.gdmec.android.boxuegu.fragment.AdBeannerFragment;
+import cn.edu.gdmec.android.boxuegu.fragment.AdBannerFragment;
 import cn.edu.gdmec.android.boxuegu.view.CourseView;
 import android.os.Bundle;
 

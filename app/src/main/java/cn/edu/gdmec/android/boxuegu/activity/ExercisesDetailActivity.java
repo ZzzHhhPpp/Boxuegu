@@ -2,8 +2,8 @@ package cn.edu.gdmec.android.boxuegu.activity;
 
 import android.content.pm.ActivityInfo;
 import cn.edu.gdmec.android.boxuegu.R;
-import cn.edu.gdmec.android.boxuegu.adapter.ExrecisesDetailAdapter;
-import cn.edu.gdmec.android.boxuegu.adapter.ExrecisesDetailAdapter;
+import cn.edu.gdmec.android.boxuegu.adapter.ExercisesDetailAdapter;
+import cn.edu.gdmec.android.boxuegu.adapter.ExercisesDetailAdapter;
 import cn.edu.gdmec.android.boxuegu.bean.ExercisesBean;
 import cn.edu.gdmec.android.boxuegu.utils.AnalysisUtils;
 import android.graphics.Color;
@@ -33,7 +33,7 @@ public class ExercisesDetailActivity extends AppCompatActivity {
     private String title;
     private int id;
     private List<ExercisesBean> ebl;
-    private ExrecisesDetailAdapter adapter;
+    private ExercisesDetailAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -74,7 +74,7 @@ public class ExercisesDetailActivity extends AppCompatActivity {
                 ExercisesDetailActivity.this.finish();
             }
         });
-        adapter = new ExrecisesDetailAdapter(ExercisesDetailActivity.this,new ExrecisesDetailAdapter.OnSelectListener(){
+        adapter = new ExercisesDetailAdapter(ExercisesDetailActivity.this,new ExercisesDetailAdapter.OnSelectListener(){
             @Override
             public void onSelectD(int postion, ImageView iv_a, ImageView iv_b, ImageView iv_c, ImageView iv_d){
                 if (ebl.get(postion).answer != 4){

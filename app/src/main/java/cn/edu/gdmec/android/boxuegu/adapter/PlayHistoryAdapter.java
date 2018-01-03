@@ -2,9 +2,6 @@ package cn.edu.gdmec.android.boxuegu.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import cn.edu.gdmec.android.boxuegu.R;
-import cn.edu.gdmec.android.boxuegu.activity.VideoPlayActivity;
-import cn.edu.gdmec.android.boxuegu.bean.VideoBean;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,29 +11,36 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import cn.edu.gdmec.android.boxuegu.R;
+import cn.edu.gdmec.android.boxuegu.activity.VideoPlayActivity;
+import cn.edu.gdmec.android.boxuegu.bean.VideoBean;
+
 /**
- * Created by student on 17/12/27.
+ * Created by student on 17/12/28.
  */
 
 public class PlayHistoryAdapter extends BaseAdapter {
-    private Context mContext;
-    private List<VideoBean> vbl;
+
+    private Context context;
+    private List<VideoBean> vb1;
+
     public PlayHistoryAdapter(Context context){
-        this.mContext = context;
+        this.context = context;
     }
-    public void setData(List<VideoBean> vbl){
-        this.vbl = vbl;
+
+    public void setData(List<VideoBean> vb1){
+        this.vb1 = vb1;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return vbl == null ? 0 : vbl.size();
+        return vb1 == null ? 0 : vb1.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return vbl == null ? null :vbl.get(position);
+        return vb1 == null ? null : vb1.get(position);
     }
 
     @Override
@@ -49,13 +53,13 @@ public class PlayHistoryAdapter extends BaseAdapter {
         final ViewHolder vh;
         if (convertView == null){
             vh = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.play_history_list_item,null);
-            vh.tv_title = (TextView) convertView.findViewById(R.id.tv_adapter_title);
-            vh.tv_video_title = (TextView) convertView.findViewById(R.id.tv_video_title);
-            vh.iv_icon = (ImageView) convertView.findViewById(R.id.iv_video_icon);
+            convertView = LayoutInflater.from(context).inflate(R.layout.play_history_list_item,null);
+            vh.tv_title = convertView.findViewById(R.id.tv_adapter_title);
+            vh.tv_video_title = convertView.findViewById(R.id.tv_video_title);
+            vh.iv_icon = convertView.findViewById(R.id.iv_video_icon);
             convertView.setTag(vh);
-        }else {
-            vh = (ViewHolder)convertView.getTag();
+        }else{
+            vh = (ViewHolder) convertView.getTag();
         }
         final VideoBean bean = (VideoBean) getItem(position);
         if (bean != null){
@@ -92,24 +96,24 @@ public class PlayHistoryAdapter extends BaseAdapter {
                 case 10:
                     vh.iv_icon.setImageResource(R.drawable.video_play_icon10);
                     break;
-                default:
-                    vh.iv_icon.setImageResource(R.drawable.video_play_icon1);
-                    break;
             }
         }
-        convertView.setOnClickListener(new View.OnClickListener(){
+        convertView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                if (bean == null)return;
-                Intent intent = new Intent(mContext, VideoPlayActivity.class);
-                intent.putExtra("videoPath",bean.videoId);
-                mContext.startActivity(intent);
+            public void onClick(View v) {
+                if (bean == null){
+                    return;
+                }
+                Intent intent = new Intent(context, VideoPlayActivity.class);
+                intent.putExtra("videoPath",bean.videoPath);
+                context.startActivity(intent);
             }
         });
         return convertView;
     }
+
     class ViewHolder{
-        public TextView tv_title,tv_video_title;
-        public ImageView iv_icon;
+        TextView tv_title,tv_video_title;
+        ImageView iv_icon;
     }
 }
