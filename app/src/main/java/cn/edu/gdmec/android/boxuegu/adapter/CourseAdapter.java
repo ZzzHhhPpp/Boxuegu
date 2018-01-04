@@ -2,16 +2,19 @@ package cn.edu.gdmec.android.boxuegu.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import cn.edu.gdmec.android.boxuegu.R;
+import cn.edu.gdmec.android.boxuegu.activity.LoginActivity;
 import cn.edu.gdmec.android.boxuegu.activity.VideoListActivity;
 import cn.edu.gdmec.android.boxuegu.bean.CourseBean;
 
@@ -74,10 +77,17 @@ public class CourseAdapter extends BaseAdapter {
                         vh.iv_left_img.setOnClickListener(new View.OnClickListener(){
                             @Override
                             public void onClick(View v){
-                                Intent intent = new Intent(mContext, VideoListActivity.class);
-                                intent.putExtra("id",bean.id);
-                                intent.putExtra("intro",bean.intro);
-                                mContext.startActivity(intent);
+                                if(readLoginStatus()) {
+                                    Intent intent = new Intent(mContext, VideoListActivity.class);
+                                    intent.putExtra("id", bean.id);
+                                    intent.putExtra("intro", bean.intro);
+                                    mContext.startActivity(intent);
+                                }else
+                                {
+                                    Toast.makeText(mContext,"您还未登陆，请先登陆",Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(mContext, LoginActivity.class);
+                                    mContext.startActivity(intent);
+                                }
                             }
                         });
                         break;
@@ -88,10 +98,17 @@ public class CourseAdapter extends BaseAdapter {
                         vh.iv_right_img.setOnClickListener(new View.OnClickListener(){
                             @Override
                             public void onClick(View v){
+                                if(readLoginStatus()) {
                                 Intent intent = new Intent(mContext, VideoListActivity.class);
                                 intent.putExtra("id",bean.id);
                                 intent.putExtra("intro",bean.intro);
                                 mContext.startActivity(intent);
+                                }else
+                                {
+                                    Toast.makeText(mContext,"您还未登陆，请先登陆",Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(mContext, LoginActivity.class);
+                                    mContext.startActivity(intent);
+                                }
                             }
                         });
                         break;
@@ -103,6 +120,13 @@ public class CourseAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+    private boolean readLoginStatus(){
+        SharedPreferences sp=mContext.getSharedPreferences("loginInfo",Context.MODE_PRIVATE);
+        boolean isLogin = sp.getBoolean("isLogin",false);
+        return isLogin;
+    }
+
     private void setLeftImg(int id,ImageView iv_left_img){
         switch (id){
             case 1:

@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
+    /dexOptions{
+        javaMaxHeapSize"4g"
+        preDexLibraries = false
+    }/
     compileSdkVersion 26
     buildToolsVersion "26.0.3"
     defaultConfig {
